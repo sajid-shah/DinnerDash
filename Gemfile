@@ -69,3 +69,7 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
 end
+
+# user-managment gem (devise)
+
+gem 'devise', '~> 4.8', '>= 4.8.1'
