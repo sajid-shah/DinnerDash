@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'items/index'
-  get 'items/show'
-  get 'items/update'
-  get 'items/destroy'
-  get 'items/edit'
-  get 'items/new'
-  get 'items/create'
   devise_for :users
   resources :items
   get 'home/index'

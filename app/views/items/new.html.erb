@@ -1,2 +1,9 @@
-<h1>Items#new</h1>
-<p>Find me in app/views/items/new.html.erb</p>
+<h1>New friend</h1>
+
+<%= form_for @item, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
+
+<% end %>
+
+<div>
+  <%= link_to "Back to Items", items_path %>
+</div>
