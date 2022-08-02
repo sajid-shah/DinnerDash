@@ -1,2 +1,42 @@
-<h1>Items#index</h1>
-<p>Find me in app/views/items/index.html.erb</p>
+
+
+<table class="table table-bordered table-striped">
+
+  <thead>
+
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Active</th>
+      <th scope="col">Actions</th>
+
+    </tr>
+
+  </thead>
+
+<tbody>
+
+  <% @items.each do |item| %>
+
+      <tr>
+        <td><%= item.title%> </td>
+        <td><%= item.description%></td>
+        <td><%= item.price%></td>
+        <td><%= item.active%></td>
+
+        <td>
+        <%= link_to "Show", item , class: "btn btn-secondary" %>
+        <%= link_to "Delete", item , class: "btn btn-secondary", method: :delete %>
+        </td>
+
+
+
+      </tr>
+
+
+  <% end %>
+
+</tbody>
+
+</table>

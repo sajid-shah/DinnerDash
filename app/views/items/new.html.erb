@@ -1,8 +1,28 @@
-<h1>New friend</h1>
 
 <%= form_for @item, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
+  <div>
+    <%= f.label :title, style: "display: block" %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description, style: "display: block" %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div>
+    <%= f.label :price, style: "display: block" %>
+    <%= f.text_field :price %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
 
 <% end %>
+
+
+
 
 <div>
   <%= link_to "Back to Items", items_path %>
