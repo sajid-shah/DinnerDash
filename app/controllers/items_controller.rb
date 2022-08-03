@@ -11,6 +11,8 @@ class ItemsController < ApplicationController
 
   def update
     @item.update(item_params)
+    redirect_to items_path
+
 
     # respond_to do |format|
     #   if @item.update(item_params)
@@ -25,11 +27,13 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
+    redirect_to items_path
   end
 
   def edit
     @item.update
     @item.save
+    redirect_to items_path
   end
 
   def new
@@ -39,6 +43,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.save
+    redirect_to items_path
   end
 
   private
