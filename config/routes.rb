@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   root 'items#index'
   get 'home/about'
 
+  devise_scope :user do
+    get 'users/registrations/index' => 'users/registrations#index'
+  end
+
   devise_for :users,
              controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
                             passwords: 'users/passwords' }
