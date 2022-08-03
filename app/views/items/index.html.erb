@@ -23,7 +23,16 @@
         <td><%= item.title%> </td>
         <td><%= item.description%></td>
         <td><%= item.price%></td>
-        <td><%= item.active%></td>
+
+        <td>
+
+        <% if item.active? %>
+        yes
+        <% else %>
+        no
+        <% end %>
+
+        </td>
 
         <td>
         <%= link_to "Show", item , class: "btn btn-secondary" %>
