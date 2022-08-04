@@ -15,17 +15,20 @@
     <%= f.text_field :price %>
   </div>
 
-  <div>
+  <div type="button" class="btn btn-light">
     <%= f.submit %>
   </div>
 
 <% end %>
 
 
-<div>
-  <%= link_to "Delete", method: :delete %>
-</div>
+<br>
 
 <div>
-  <%= link_to "Back to Items", items_path %>
+  <%= link_to "Delete", @item, method: :delete, class: "btn btn-danger" %>
+</div>
+<br>
+
+<div>
+  <%= link_to "Back to Items", items_path, class: "btn btn-dark" %>
 </div>

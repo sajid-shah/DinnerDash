@@ -15,9 +15,12 @@
     <%= f.text_field :price %>
   </div>
 
-  <div>
+  <button type="button" class="btn btn-light">
     <%= f.submit %>
-  </div>
+  </button>
+
+
+  </button>
 
 <% end %>
 
@@ -25,5 +28,5 @@
 
 
 <div>
-  <%= link_to "Back to Items", items_path %>
+  <%= link_to "Back to Items", items_path, class: "btn btn-dark" %>
 </div>

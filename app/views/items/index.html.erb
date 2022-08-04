@@ -1,4 +1,9 @@
 
+<div>
+<%= link_to "New Item", new_item_path , class: "btn btn-primary" %>
+</div>
+<br> <br>
+
 
 <table class="table table-bordered table-striped">
 
@@ -22,7 +27,7 @@
       <tr>
         <td><%= item.title%> </td>
         <td><%= item.description%></td>
-        <td><%= item.price%></td>
+        <td>Rs.<%= item.price%></td>
 
         <td>
 
@@ -36,7 +41,8 @@
 
         <td>
         <%= link_to "Show", item , class: "btn btn-secondary" %>
-        <%= link_to "Delete", item , class: "btn btn-secondary", method: :delete %>
+        <%= link_to "Delete", item , class: "btn btn-danger", method: :delete %>
+
         </td>
 
 
