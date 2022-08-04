@@ -1,2 +1,47 @@
 <h1>Categories#index</h1>
 <p>Find me in app/views/categories/index.html.erb</p>
+
+
+
+<div>
+<%= link_to "New Category", new_category_path, class: "btn btn-primary" %>
+</div>
+<br> <br>
+
+
+<table class="table table-bordered table-striped">
+
+  <thead>
+
+    <tr>
+      <th scope="col">Name</th>
+
+      <th scope="col">Actions</th>
+
+    </tr>
+
+  </thead>
+
+<tbody>
+
+  <% @categories.each do |category| %>
+
+      <tr>
+        <td><%= category.name %> </td>
+
+        <td>
+        <%= link_to "Show", category , class: "btn btn-secondary" %>
+        <%= link_to "Delete", category , class: "btn btn-danger", method: :delete %>
+
+        </td>
+
+
+
+      </tr>
+
+
+  <% end %>
+
+</tbody>
+
+</table>
