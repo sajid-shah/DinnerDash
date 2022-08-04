@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'categories/index'
+  get 'categories/show'
+  get 'categories/update'
+  get 'categories/destroy'
+  get 'categories/edit'
+  get 'categories/new'
+  get 'categories/create'
   resources :items
 
   get 'home/index'
