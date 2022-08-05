@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   resources :categories
   resources :items
+  resources :categorizations
 
   get 'home/index'
   root 'items#index'

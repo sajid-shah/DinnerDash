@@ -15,6 +15,12 @@
     <%= f.text_field :price %>
   </div>
 
+    <div class="field">
+        <%= f.label :Category%><br>
+        <%= f.collection_select :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => false} %>
+    </div>
+
+
   <button type="button" class="btn btn-light">
     <%= f.submit %>
   </button>
