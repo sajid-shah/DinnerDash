@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get 'users/registrations/index' => 'users/registrations#index'
+    post 'users/registrations/make_admin' => 'users/registrations#make_admin'
   end
 
   devise_for :users,
