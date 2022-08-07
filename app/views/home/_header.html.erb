@@ -34,7 +34,7 @@
           </li>
 
 
-          <% if current_user.role == "admin" %>
+          <% if current_user.role != "customer"%>
 
             <li class="nav-item">
               <%= link_to "Dashboard", home_about_path, class: "nav-link" %>
@@ -45,6 +45,9 @@
             </li>
 
           <% end %>
+          <div class="navbar-text warning">
+              <strong><%= current_user.email %></strong>
+          </div>
 
         <% else %>
 
@@ -68,6 +71,9 @@
           <input class="form-control me-2" type="search" placeholder="Search Item " aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+
+
+
 
 
       </div>

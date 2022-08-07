@@ -7,29 +7,28 @@
     <tr>
       <th scope="col">Email</th>
       <th scope="col">Username</th>
+      <th scope="col">Role</th>
       <th scope="col">Actions</th>
-
-
-
     </tr>
 
   </thead>
 
-<tbody>
+  <tbody>
 
-  <% @users.each do |user| %>
+    <% @users.each do |user| %>
       <tr>
-        <%if user.role != "admin" %>
+        <%if user.role != "superadmin" %>
           <td><%= user.email%> </td>
           <td><%= user.email.split("@")[0]%></td>
+          <td><%= user.role%></td>
           <td>
-            <%= button_to 'Make Admin', {:controller => "users/registrations", :action => "make_admin", :id => user.id} %>
-
+            <%if current_user.role == "superadmin" && user.role == "customer" %>
+              <%= button_to 'Make Admin', {:controller => "users/registrations", :action => "make_admin", :id => user.id} %>
+            <%end%>
           </td>
         <% end %>
       </tr>
-  <% end %>
-
-</tbody>
+    <% end %>
+  </tbody>
 
 </table>
