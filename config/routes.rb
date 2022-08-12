@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'orders/index'
+  get 'orders/show'
   resources :categories
   resources :items
   resources :categorizations

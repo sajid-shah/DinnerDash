@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_04_125223) do
+ActiveRecord::Schema.define(version: 2022_08_12_052732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,26 @@ ActiveRecord::Schema.define(version: 2022_08_04_125223) do
     t.boolean "active"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.integer "quantity"
+    t.decimal "totalamount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_order_items_on_item_id"
+    t.index ["user_id"], name: "index_order_items_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "total"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -56,4 +76,7 @@ ActiveRecord::Schema.define(version: 2022_08_04_125223) do
 
   add_foreign_key "categorizations", "categories"
   add_foreign_key "categorizations", "items"
+  add_foreign_key "order_items", "items"
+  add_foreign_key "order_items", "users"
+  add_foreign_key "orders", "users"
 end

@@ -2,8 +2,7 @@
 
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: [:index, :show]
-
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     @items = Item.all
@@ -14,7 +13,6 @@ class ItemsController < ApplicationController
   def update
     @item.update(item_params)
     redirect_to items_path
-
 
     # respond_to do |format|
     #   if @item.update(item_params)

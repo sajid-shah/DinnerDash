@@ -1,18 +1,18 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     @categories = Category.all
   end
 
-  def show
-  end
+  def show; end
 
   def update
     @category.update(category_params)
     redirect_to categories_path
-
   end
 
   def destroy
