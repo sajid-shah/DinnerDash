@@ -8,25 +8,28 @@
       <th scope="col">Email</th>
       <th scope="col">Username</th>
       <th scope="col">Role</th>
-      <th scope="col">Actions</th>
+      <%if not(current_user.role == 'customer') %>
+        <th scope="col">Actions</th>
+      <%end%>
     </tr>
 
   </thead>
 
   <tbody>
-
     <% @users.each do |user| %>
       <tr>
-        <%if user.role != "superadmin" %>
-          <td><%= user.email%> </td>
-          <td><%= user.email.split("@")[0]%></td>
-          <td><%= user.role%></td>
-          <td>
-            <%if current_user.role == "superadmin" && user.role == "customer" %>
+        <td><%= user.email%> </td>
+        <td><%= user.email.split("@")[0]%></td>
+        <td><%= user.role%></td>
+          <%if user.role == "customer" %>
+            <td>
               <%= button_to 'Make Admin', {:controller => "users/registrations", :action => "make_admin", :id => user.id} %>
-            <%end%>
-          </td>
-        <% end %>
+            </td>
+          <%else%>
+            <td>
+              <%= putc "already admin" %>
+            </td>
+          <%end%>
       </tr>
     <% end %>
   </tbody>
