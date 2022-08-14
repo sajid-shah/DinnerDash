@@ -29,9 +29,7 @@
             <%= link_to "Sign Out", destroy_user_session_path,method: :delete, class: "nav-link" %>
           </li>
 
-          <li class="nav-item">
-            <%= link_to "My Cart", home_about_path, class: "nav-link" %>
-          </li>
+
 
 
           <% if current_user.role != "customer"%>
@@ -44,7 +42,12 @@
               <%= link_to "Users", users_registrations_index_path, class: "nav-link" %>
             </li>
 
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "My Cart", cart_index_path, class: "nav-link" %>
+            </li>
           <% end %>
+
           <div class="navbar-text warning">
               <strong><%= current_user.email %></strong>
           </div>
@@ -60,7 +63,7 @@
           </li>
 
            <li class="nav-item">
-            <%= link_to "My Cart", home_about_path, class: "nav-link" %>
+            <%= link_to "My Cart", cart_index_path, class: "nav-link" %>
           </li>
 
 

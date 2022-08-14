@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'orders/index'
-  get 'orders/show'
+  # get 'cart/show'
+  # get 'orders/index'
+  # get 'orders/show'
+  resources :cart
+
   resources :categories
   resources :items
   resources :categorizations
+
+  resources :orders
+  resources :order_items
 
   get 'home/index'
   root 'items#index'
