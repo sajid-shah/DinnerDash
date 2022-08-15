@@ -4,6 +4,13 @@ class ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[index show]
 
+  def toggle_status
+    item = Item.find(params[:id])
+    item.active = !item.active
+    item.save
+    redirect_to items_path
+  end
+
   def index
     @items = Item.all
   end

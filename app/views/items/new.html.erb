@@ -1,5 +1,6 @@
 
-<%= form_for @item, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
+
+<%= form_for @item, url: {action: "create"}, html: {class: "form"} do |f| %>
   <div>
     <%= f.label :title, style: "display: block" %>
     <%= f.text_field :title %>
@@ -15,16 +16,18 @@
     <%= f.text_field :price %>
   </div>
 
-    <div class="field">
-        <%= f.label :Category%><br>
-        <%= f.collection_select :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => false} %>
-    </div>
+  <div class="field">
+      <%= f.label :Category%><br>
+      <%= f.collection_select :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => false} %>
+  </div>
 
+  
 
-  <button type="button" class="btn btn-light">
-    <%= f.submit %>
-  </button>
-
+<br>
+  <div>
+    <%= f.submit "Create Item", class: "btn btn-primary"  %>
+  </div>
+<br>
 <% end %>
 
 

@@ -20,17 +20,18 @@
       <%= f.collection_select :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => false} %>
   </div>
 
-  <div type="button" class="btn btn-light">
-    <%= f.submit %>
+  <br>
+
+  <div>
+    <%= f.submit "Update", class: 'btn  btn-primary'%>
   </div>
 
 <% end %>
 
-
-<br>
+  <br>
 
 <div>
-  <%= link_to "Delete", @item, method: :delete, class: "btn btn-danger" %>
+  <%= link_to "Delete", @item , class: "btn btn-danger", method: :delete %>
 </div>
 <br>
 

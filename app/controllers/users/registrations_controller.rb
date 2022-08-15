@@ -2,8 +2,13 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    before_action :set_current_user
     def index
       @users = User.all
+    end
+
+    def set_current_user
+      @user = current_user
     end
 
     def make_admin
