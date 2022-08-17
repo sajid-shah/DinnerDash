@@ -25,7 +25,11 @@
           </ul>
 
           <div class="card-body">
-              <%= button_to item.active == true ? 'Add to Cart' : 'Added', {:controller => "items", :action => "toggle_status", :id => item.id}, :class => "btn btn-primary"%>
+            <%= form_for OrderItem.new, url: {controller: 'order_items', action: "create", method: :post}, html: {class: "nifty_form"}  do |i| %>
+              <%= i.hidden_field :item_id, value: item.id %>
+              <%= i.number_field :quantity, value: 1, min: 1 %>
+              <%= i.submit "Add to Cart", class: 'btn  btn-primary' %>
+            <%end%>
           </div>
         </div>
       </div>

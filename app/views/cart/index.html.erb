@@ -1,12 +1,10 @@
-<h1>Cart#show</h1>
-<%if @order_items %>
-    <% @order_items.each do |order_item|%>
-    <%= order_item.item_id %>
-    <%= Item.find(order_item.item_id).title %>
+<%if @order_items%>
+  <% @order_items.each do |order_item| %>
+    <h3><%= order_item.item.title %></h3>
+    <h3><%= order_item.item.price %></h3>
 
-    <br>
-    <%end%>
-    <%= @order_items.sum(:'totalamount') %>
-<%else%>
-  <p>Find me in app/views/cart/show.html.erb</p>
+  <%end%>
+  <% sum = @order_items.sum('totalamount') %>
 <%end%>
+  <H2>Total Amount : <%= sum %></h2>
+

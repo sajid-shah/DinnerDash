@@ -8,10 +8,6 @@ class User < ApplicationRecord
   enum role: { superadmin: 0, admin: 1, customer: 2 }
   after_initialize :set_default_role, if: :new_record?
   def set_default_role
-    self.role ||= if User.first
-                    :customer
-                  else
-                    :superadmin
-                  end
+    self[:role] = User.first ? :customer : :superadmin
   end
 end
