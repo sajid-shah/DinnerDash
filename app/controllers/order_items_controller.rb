@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
   before_action :set_order
+  after_action :set_total
   def index
     @order_items = Order_Items.find_by(params[:order_id])
   end
@@ -77,6 +78,11 @@ class OrderItemsController < ApplicationController
 
   def order_item_params
     params.require(:order_item).permit(:item_id, :quantity)
+  end
+
+  def set_total
+    @order[:total] = @order.order_items.sum{ |order_item| order_item.valid? ? order_item.quantity * order_item.unit_price : 0.0 }
+    @order&.save
   end
 
   # def current_order

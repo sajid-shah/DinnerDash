@@ -10,7 +10,6 @@ class Order < ApplicationRecord
 
   def set_default_status
     self[:status] = :processing
-    # self[:total] = Order.order_items.sum { |order_item| order_item.valid ? order_item.quantity * order_item.unit_price : 0 }
   end
 
 
