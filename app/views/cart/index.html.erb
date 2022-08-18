@@ -1,4 +1,5 @@
 <%if @order_items%>
+  <%= button_to 'Clear Cart', {:controller => "orders", method: :post, :action => 'destroy'}  %>
   <% @order_items.each do |order_item| %>
     <h5><%= order_item.item.title %></h5>
     <h6>Price : <%= order_item.item.price %></h6>

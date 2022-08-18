@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'orders/index'
   get 'orders/update'
   get 'orders/create'
+  post 'orders', to: 'orders#destroy'
+
 
   # get 'cart/show'
   # get 'orders/index'
