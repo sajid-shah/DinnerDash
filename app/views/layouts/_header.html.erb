@@ -48,6 +48,11 @@
             </li>
           <% end %>
 
+          <li class="nav-item">
+            <%= link_to "Order History", orders_path, class: "nav-link" %>
+          </li>
+
+
           <div class="navbar-text warning">
               <strong><%= current_user.email %></strong>
           </div>
@@ -74,6 +79,8 @@
           <input class="form-control me-2" type="search" placeholder="Search Item " aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+
+
 
 
 
