@@ -1,16 +1,25 @@
 <%if @order_items%>
   <%= button_to 'Clear Cart', {:controller => "orders", method: :post, :action => 'destroy'}  %>
-  <% @order_items.each do |order_item| %>
+  <% @order_items.each do |order_item|  %>
+  <%if order_item.quantity > 0 %>
     <h5><%= order_item.item.title %></h5>
     <h6>Price : <%= order_item.item.price %></h6>
-    <h6>Quantity = <%= order_item.quantity %></h6>
+      <%= form_for order_item, url: {controller: 'order_items', action: "update", :id => order_item.id}, html: {class: "nifty_form"} do |i| %>
+        <%= i.hidden_field :id, value: order_item.id %>
+        <%= i.number_field :quantity, value: order_item.quantity, min: 1 %>
+        <%= i.submit "Update", class: 'btn  btn-primary' %>
+      <%end%>
     <h6>Subtotal = <%= order_item.quantity * order_item.unit_price %></h6>
+    <div>
+      <%= link_to "Remove Item", order_item , class: "btn btn-danger", method: :delete , :id => order_item.id%>
+    </div>
     <br>
+    <br>
+    <%end%>
   <%end%>
   <% sum = @order_items.sum('totalamount') %>
 <%end%>
 <h4>Total Amount : <%= sum %></h2>
 
 <%= button_to 'Order', {:controller => "cart", :action => "checkout"} %>
-
 

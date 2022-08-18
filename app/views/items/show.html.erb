@@ -17,7 +17,7 @@
 
   <div class="field">
       <%= f.label :Category%><br>
-      <%= f.collection_select :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => false} %>
+      <%= f.collection_select :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => true} %>
   </div>
 
   <br>
