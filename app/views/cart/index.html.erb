@@ -1,10 +1,15 @@
 <%if @order_items%>
   <% @order_items.each do |order_item| %>
-    <h3><%= order_item.item.title %></h3>
-    <h3><%= order_item.item.price %></h3>
-
+    <h5><%= order_item.item.title %></h5>
+    <h6>Price : <%= order_item.item.price %></h6>
+    <h6>Quantity = <%= order_item.quantity %></h6>
+    <h6>Subtotal = <%= order_item.quantity * order_item.unit_price %></h6>
+    <br>
   <%end%>
   <% sum = @order_items.sum('totalamount') %>
 <%end%>
-  <H2>Total Amount : <%= sum %></h2>
+<h4>Total Amount : <%= sum %></h2>
+
+<%= button_to 'Order', {:controller => "cart", :action => "checkout"} %>
+
 

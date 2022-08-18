@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   # get 'cart/show'
   # get 'orders/index'
   # get 'orders/show'
-  resources :cart
-
+  get '/cart', to: 'cart#index'
   resources :categories
   resources :items
   resources :categorizations
@@ -21,7 +20,7 @@ Rails.application.routes.draw do
   root 'items#index'
   get 'home/about'
   post 'items/:id', to: 'items#toggle_status'
-
+  post 'cart' => 'cart#checkout'
 
   devise_scope :user do
     get 'users/registrations/index' => 'users/registrations#index'

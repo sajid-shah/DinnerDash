@@ -59,9 +59,8 @@ class OrderItemsController < ApplicationController
   private
 
   def set_order
-
     if !current_user
-      if (session[:order_id])
+      if session[:order_id]
         @order = Order.find_by(id: session[:order_id])
       else
         @order = Order.create
