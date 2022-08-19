@@ -4,11 +4,20 @@ class OrdersController < ApplicationController
 
   def index
     if current_user.role == 'customer'
-      @orders = current_user.orders.all#.where(status: 'ordered')
+      @orders = current_user.orders.all
     else
-      @orders = Order.all.where.user_id?
+      @orders = Order.where.not(status: 'processing')
     end
   end
+
+
+  def change_status
+    order = Order.find(params[:id])
+    order.status = params[:status]
+    order.save
+    redirect_to orders_index_path
+  end
+
 
   def update
   end

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get 'home/about'
   post 'items/:id', to: 'items#toggle_status'
   post 'cart' => 'cart#checkout'
+  post 'orders/change_status' => 'orders#change_status'
+
 
   devise_scope :user do
     get 'users/registrations/index' => 'users/registrations#index'

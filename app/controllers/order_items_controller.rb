@@ -1,7 +1,8 @@
 class OrderItemsController < ApplicationController
   before_action :set_order
   # before_action :set_total
-  after_action  :set_total
+  after_action  :set_total, only: %i[create]
+
   def index
     @order_items = Order_Items.find_by(params[:order_id])
   end
