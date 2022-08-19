@@ -9,57 +9,59 @@
 <%end%>
 
 <div class="d-flex justify-content-between flex-wrap">
-  <% @items.each do |item| %>
-    <%if (!current_user || current_user.role == 'customer') && item.active == true   %>
-      <div class="col">
-        <div class="card h-100" style="width: 12em">
-          <img src="https://images.unsplash.com/photo-1602253057119-44d745d9b860?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZGlzaHxlbnwwfHwwfHw%3D&w=1000&q=80" class="img-thumbnail" alt="...">
+  <% if @items %>
+    <% @items.each do |item| %>
+      <%if (!current_user || current_user.role == 'customer') && item.active == true   %>
+        <div class="col">
+          <div class="card h-100" style="width: 12em">
+            <img src="https://images.unsplash.com/photo-1602253057119-44d745d9b860?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZGlzaHxlbnwwfHwwfHw%3D&w=1000&q=80" class="img-thumbnail" alt="...">
 
-          <div class="card-body h-100">
-            <h5 class="card-title"><%= item.title%></h5>
-            <p class="card-text"><%= item.description%></p>
-          </div>
+            <div class="card-body h-100">
+              <h5 class="card-title"><%= item.title%></h5>
+              <p class="card-text"><%= item.description%></p>
+            </div>
 
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price Rs.<%= item.price%> </li>
-          </ul>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Price Rs.<%= item.price%> </li>
+            </ul>
 
-          <div class="card-body">
-            <%= form_for OrderItem.new, url: {controller: 'order_items', action: "create", method: :post}, html: {class: "nifty_form"}  do |i| %>
-              <%= i.hidden_field :item_id, value: item.id %>
-              <%= i.number_field :quantity, value: 1, min: 1 %>
-              <%= i.submit "Add to Cart", class: 'btn  btn-primary' %>
-            <%end%>
-          </div>
-        </div>
-      </div>
-    <%end%>
-    <% if current_user && current_user.role != 'customer' %>
-      <div class="col">
-        <div class="card h-100" style="width: 12em">
-          <img src="https://images.unsplash.com/photo-1602253057119-44d745d9b860?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZGlzaHxlbnwwfHwwfHw%3D&w=1000&q=80" class="img-thumbnail" alt="...">
-
-          <div class="card-body h-100">
-            <h5 class="card-title"><%= item.title%></h5>
-            <p class="card-text"><%= item.description%></p>
-          </div>
-
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price Rs.<%= item.price%> </li>
-          </ul>
-
-            <div class="col card-body">
-              <%= link_to "Show", item , class: "btn btn-dark" %>
-              <% if item.active == true %>
-                <%= button_to 'Mark Retire', {:controller => "items", :action => "toggle_status", :id => item.id}, :class => "btn btn-danger"%>
-              <%else%>
-                <%= button_to 'Mark Active', {:controller => "items", :action => "toggle_status", :id => item.id}, :class => "btn btn-success"%>
+            <div class="card-body">
+              <%= form_for OrderItem.new, url: {controller: 'order_items', action: "create", method: :post}, html: {class: "nifty_form"}  do |i| %>
+                <%= i.hidden_field :item_id, value: item.id %>
+                <%= i.number_field :quantity, value: 1, min: 1 %>
+                <%= i.submit "Add to Cart", class: 'btn  btn-primary' %>
               <%end%>
             </div>
+          </div>
         </div>
-      </div>
-    <%end%>
-  <% end %>
+      <%end%>
+      <% if current_user && current_user.role != 'customer' %>
+        <div class="col">
+          <div class="card h-100" style="width: 12em">
+            <img src="https://images.unsplash.com/photo-1602253057119-44d745d9b860?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZGlzaHxlbnwwfHwwfHw%3D&w=1000&q=80" class="img-thumbnail" alt="...">
+
+            <div class="card-body h-100">
+              <h5 class="card-title"><%= item.title%></h5>
+              <p class="card-text"><%= item.description%></p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Price Rs.<%= item.price%> </li>
+            </ul>
+
+              <div class="col card-body">
+                <%= link_to "Show", item , class: "btn btn-dark" %>
+                <% if item.active == true %>
+                  <%= button_to 'Mark Retire', {:controller => "items", :action => "toggle_status", :id => item.id}, :class => "btn btn-danger"%>
+                <%else%>
+                  <%= button_to 'Mark Active', {:controller => "items", :action => "toggle_status", :id => item.id}, :class => "btn btn-success"%>
+                <%end%>
+              </div>
+          </div>
+        </div>
+      <%end%>
+    <% end %>
+  <%end%>
 </div>
 
 

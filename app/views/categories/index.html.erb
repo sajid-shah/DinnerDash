@@ -30,11 +30,17 @@
         <td><%= category.name %> </td>
 
         <td>
-          <%= link_to "Show", category , class: "btn btn-primary" %>
+                  <div>
+          <%= link_to "Show", category_items_path(category_id: category.id), method: :get, class: 'btn btn-primary' %>
+
           <% if current_user && current_user.role != 'customer' %>
+
             <%= link_to "Update Category", category , class: "btn btn-secondary" %>
             <%= link_to "Delete", category , class: "btn btn-danger", method: :delete %>
+
           <%end%>
+                    </div>
+
         </td>
 
 

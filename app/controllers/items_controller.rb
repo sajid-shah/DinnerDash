@@ -13,6 +13,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
+    @items = Category.find_by(id: params[:category_id]).items if params[:category_id]
   end
 
   def show; end

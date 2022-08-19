@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get 'orders/create'
   post 'orders', to: 'orders#destroy'
 
+  resources :categories do
+    resources :items
+  end
+
 
   # get 'cart/show'
   # get 'orders/index'
