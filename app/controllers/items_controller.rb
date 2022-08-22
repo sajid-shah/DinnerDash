@@ -14,6 +14,9 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
     @items = Category.find_by(id: params[:category_id]).items if params[:category_id]
+    @items = Restaurant.find_by(id: params[:restaurant_id]).items if params[:restaurant_id]
+    # @items = Item.find_by(restaurant_id: current_user.restaurants.ids) if current_user.role == 'admin'
+
   end
 
   def show; end
@@ -50,7 +53,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item.save
+    @item.save!
     redirect_to items_path
   end
 
@@ -63,6 +66,6 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:id, :title, :description, :price, :active, category_ids: [])
+    params.require(:item).permit(:restaurant_id, :id, :title, :description, :price, :active, category_ids: [])
   end
 end

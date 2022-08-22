@@ -37,6 +37,8 @@ class CategoriesController < ApplicationController
   end
 
   # Use callbacks to share common setup or constraints between actions.
+  private
+  
   def set_category
     @category = Category.find(params[:id])
   end

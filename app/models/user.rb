@@ -5,6 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
   has_many :orders, dependent: :destroy
+  has_many :restaurants, dependent: :destroy
   enum role: { superadmin: 0, admin: 1, customer: 2 }
   after_initialize :set_default_role, if: :new_record?
   def set_default_role

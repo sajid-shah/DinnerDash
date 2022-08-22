@@ -1,7 +1,7 @@
 class OrderItemsController < ApplicationController
   before_action :set_order
   # before_action :set_total
-  after_action  :set_total, only: %i[create]
+  after_action  :set_total, only: %i[update]
 
   def index
     @order_items = Order_Items.find_by(params[:order_id])
@@ -45,7 +45,13 @@ class OrderItemsController < ApplicationController
     # else
     #   # @user_order = Order.find_by(id: session[:order_id])
     # end
-    @order_item = @order.order_items.create(order_item_params)
+    @order_item = @order.order_items.new(order_item_params)
+
+    if @order.order_items.length == 0 || Item.find(@order_item.item_id).restaurant_id == Item.find(@order.order_items.first.item_id).restaurant_id
+      @order_item.save
+      set_total
+    end
+
     # @order_item = @user_order.order_items.create(order_item_params)
 
 

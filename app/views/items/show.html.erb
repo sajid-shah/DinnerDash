@@ -17,7 +17,12 @@
 
   <div class="field">
       <%= f.label :Category%><br>
-      <%= f.collection_select :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => true} %>
+      <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => true} %>
+  </div>
+
+      <div class="field">
+      <%= f.label :Restaurant %><br>
+      <%= f.collection_select :restaurant_id, Restaurant.all, :id, :name, {include_blank: "select Restaurant"},  {:multiple => false} %>
   </div>
 
   <br>

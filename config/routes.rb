@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :restaurants
+
+  resources :restaurants do
+    resources :items
+  end
   get 'orders/index'
   get 'orders/update'
   get 'orders/create'
@@ -11,9 +16,6 @@ Rails.application.routes.draw do
   end
 
 
-  # get 'cart/show'
-  # get 'orders/index'
-  # get 'orders/show'
   get '/cart', to: 'cart#index'
   resources :categories
   resources :items
