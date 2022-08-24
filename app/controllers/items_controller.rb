@@ -8,15 +8,16 @@ class ItemsController < ApplicationController
     item = Item.find(params[:id])
     item.active = !item.active
     item.save
+    
     redirect_to items_path
   end
 
   def index
     @items = Item.all
+    @items = Item.select{|x| current_user.restaurants.ids.include?(x.restaurant_id) }if current_user && current_user.role == 'admin'
     @items = Category.find_by(id: params[:category_id]).items if params[:category_id]
     @items = Restaurant.find_by(id: params[:restaurant_id]).items if params[:restaurant_id]
-    # @items = Item.find_by(restaurant_id: current_user.restaurants.ids) if current_user.role == 'admin'
-
+    @items = Category.find_by(id: params[:category_id]).items.select{|x| current_user.restaurants.ids.include?(x.restaurant_id) } if params[:category_id] && current_user && current_user.role == 'admin'
   end
 
   def show; end

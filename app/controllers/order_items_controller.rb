@@ -72,13 +72,14 @@ class OrderItemsController < ApplicationController
       if session[:order_id]
         @order = Order.find_by(id: session[:order_id])
       else
-        @order = Order.create
+        @order = Order.create(restaurant_id: Item.find(params[:order_item][:item_id]).restaurant_id)
         session[:order_id] = @order.id
       end
     else
       @order = current_user.orders.where(status: 'processing')[0]
       if @order.nil?
-        @order = current_user.orders.create
+        @order = current_user.orders.create(restaurant_id: Item.find(params[:order_item][:item_id]).restaurant_id)
+
       end
     end
 

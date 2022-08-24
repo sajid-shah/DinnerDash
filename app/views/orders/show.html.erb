@@ -1,2 +1,21 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<%if @order_items %>
+  <% @order_items.each do |order_item|  %>
+  <%if order_item.quantity > 0 %>
+    <h5><%= order_item.item.title %></h5>
+    <h6>Price : <%= order_item.item.price %></h6>
+      <%= form_for order_item, url: {controller: 'order_items', action: "update", :id => order_item.id}, html: {class: "nifty_form"} do |i| %>
+        <%= i.hidden_field :id, value: order_item.id %>
+        <%= i.number_field :quantity, value: order_item.quantity, min: 1 %>
+        <%= i.submit "Update", class: 'btn  btn-primary' %>
+      <%end%>
+    <h6>Subtotal = <%= order_item.quantity * order_item.unit_price %></h6>
+
+    <br>
+    <br>
+    <%end%>
+  <%end%>
+  <% sum = @order_items.sum('totalamount') %>
+<%end%>
+<h4>Total Amount : <%= sum %></h2>
+
+

@@ -2,6 +2,7 @@
 
 class Order < ApplicationRecord
   belongs_to :user, optional: true
+  belongs_to :restaurant
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
   after_initialize :set_default_status, if: :new_record?
@@ -11,6 +12,10 @@ class Order < ApplicationRecord
   def set_default_status
     self[:status] = :processing
   end
+
+  # def count
+  #   Order.where(params[:status])
+  # end
 
 
 

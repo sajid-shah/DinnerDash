@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_22_081505) do
+ActiveRecord::Schema.define(version: 2022_08_22_120816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2022_08_22_081505) do
     t.datetime "updated_at", null: false
     t.integer "status"
     t.decimal "total"
+    t.bigint "restaurant_id"
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -90,6 +92,7 @@ ActiveRecord::Schema.define(version: 2022_08_22_081505) do
   add_foreign_key "items", "restaurants"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "restaurants"
   add_foreign_key "orders", "users"
   add_foreign_key "restaurants", "users"
 end

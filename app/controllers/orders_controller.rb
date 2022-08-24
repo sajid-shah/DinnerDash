@@ -4,12 +4,16 @@ class OrdersController < ApplicationController
 
   def index
     if current_user.role == 'customer'
+
       @orders = current_user.orders.all
+
+    elsif current_user.role == 'admin'
+      # @count = Order.where.not(status: 'processing').select{|x| current_user.restaurants.ids.include?(x.restaurant_id) }
+      params[:status] ? @orders = Order.where(status: params[:status]).select{|x| current_user.restaurants.ids.include?(x.restaurant_id)} : @orders = Order.where.not(status: 'processing').select{|x| current_user.restaurants.ids.include?(x.restaurant_id) }
     else
-      @orders = Order.where.not(status: 'processing')
+      params[:status] ? @orders = Order.where(status: params[:status]) : @orders = Order.where.not(status: 'processing')
     end
   end
-
 
   def change_status
     order = Order.find(params[:id])
@@ -22,6 +26,11 @@ class OrdersController < ApplicationController
   def update
   end
 
+  def show
+    @order_items = Order.find(params[:id]).order_items
+
+  end
+
   def create
 
 
@@ -31,7 +40,12 @@ class OrdersController < ApplicationController
     session[:order_id] = nil
     redirect_to cart_path
   end
+
+
+
   private
+
+
 
   def set_order
     if !current_user

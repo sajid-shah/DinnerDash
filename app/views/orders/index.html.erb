@@ -1,7 +1,29 @@
 
+    <div class="card-header">Filter Result by Status</div>
+    <div class="card-body">
+      <div class="col-1">
+
+        <%= button_to 'Ordered'   ,orders_path, action: :test,method: :"get", class: 'btn btn-primary',params:{status: "ordered"}%>
+
+        <%= button_to 'Paid',orders_path, action: :test,method: :"get", class: 'btn btn-info',params:{status: "paid"}%>
+        <%= button_to 'Cancelled',orders_path, action: :test,method: :"get", class: 'btn btn-danger' ,params:{status: "cancelled"} %>
+        <%= button_to 'Completed',orders_path, action: :test,method: :"get", class: 'btn btn-success',params:{status: "completed"} %>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
 <% @orders.each do |order| %>
 <div class="jumbotron" style="background-color: #f0eded">
   <h1 class="display-4"><%= order.status%></h1>
+  <h5 class="display-4 "><%=link_to Order, order %> </h5>
   <p class="lead">Order ID = <%= order.id %> </p>
   <p class="lead">Order Amount = <%= order.total %> </p>
   <hr class="my-4">
@@ -23,7 +45,6 @@
       <% if order.status == 'completed'%>
         <p style="color:green">completed</p>
       <%end%>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </p>
   <%end%>
 </div>

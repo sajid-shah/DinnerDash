@@ -18,6 +18,8 @@
 
             <div class="card-body h-100">
               <h5 class="card-title"><%= item.title%></h5>
+              <h6 class="card-title"><%= Restaurant.find(item.restaurant_id).name %></h5>
+
               <p class="card-text"><%= item.description%></p>
             </div>
 
@@ -42,6 +44,7 @@
 
             <div class="card-body h-100">
               <h5 class="card-title"><%= item.title%></h5>
+              <h6 class="card-title"><%= Restaurant.find(item.restaurant_id).name %></h5>
               <p class="card-text"><%= item.description%></p>
             </div>
 
