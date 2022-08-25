@@ -1,71 +1,73 @@
 # frozen_string_literal: true
 
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_item, only: %i[show update destroy]
+  before_action :authenticate_user!, except: %i[index]
 
   def toggle_status
+    authorize Item
     item = Item.find(params[:id])
     item.active = !item.active
-    item.save
-    
+    item.save && item.active ? flash[:notice] = t(:item_active) : flash[:alert] = t(:item_retire)
+
     redirect_to items_path
   end
 
   def index
     @items = Item.all
-    @items = Item.select{|x| current_user.restaurants.ids.include?(x.restaurant_id) }if current_user && current_user.role == 'admin'
+    if current_user && current_user.role == 'admin'
+      @items = Item.select do |x|
+        current_user.restaurants.ids.include?(x.restaurant_id)
+      end
+    end
+
     @items = Category.find_by(id: params[:category_id]).items if params[:category_id]
     @items = Restaurant.find_by(id: params[:restaurant_id]).items if params[:restaurant_id]
-    @items = Category.find_by(id: params[:category_id]).items.select{|x| current_user.restaurants.ids.include?(x.restaurant_id) } if params[:category_id] && current_user && current_user.role == 'admin'
+
+    return unless params[:category_id] && current_user && current_user.role == 'admin'
+
+    @items = Category.find_by(id: params[:category_id]).items.select do |x|
+      current_user.restaurants.ids.include?(x.restaurant_id)
+    end
   end
 
-  def show; end
+  def show
+    authorize Item
+  end
 
   def update
-    @item.update(item_params)
-    redirect_to items_path
+    authorize Item
+    @item.update(item_params) ? flash[:notice] = t(:item_updated) : flash[:alert] = @item.errors.full_messages
 
-    # respond_to do |format|
-    #   if @item.update(item_params)
-    #     format.html { redirect_to item_url(@item), notice: "Item was successfully updated." }
-    #     format.json { render :show, status: :ok, location: @item }
-    #   else
-    #     format.html { render :edit, status: :unprocessable_entity }
-    #     format.json { render json: @item.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    redirect_to @item.update(item_params) ? items_path : @item
   end
 
   def destroy
-    @item.destroy
-    redirect_to items_path
-  end
+    authorize Item
+    flash[:alert] = @item.destroy ? t(:item_deleted) : @item.errors
 
-  def edit
-    @item.update
-    @item.save
     redirect_to items_path
   end
 
   def new
+    authorize Item
     @item = Item.new
   end
 
   def create
+    authorize Item
     @item = Item.new(item_params)
-    @item.save!
-    redirect_to items_path
+    @item.save ? flash[:notice] = t(:item_created) : flash[:alert] = @item.errors.full_messages
+
+    redirect_to @item.save ? items_path : new_item_path
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_item
     @item = Item.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def item_params
     params.require(:item).permit(:restaurant_id, :id, :title, :description, :price, :active, category_ids: [])
   end

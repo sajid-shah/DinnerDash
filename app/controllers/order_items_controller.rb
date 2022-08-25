@@ -1,66 +1,42 @@
+# frozen_string_literal: true
+
 class OrderItemsController < ApplicationController
   before_action :set_order
-  # before_action :set_total
-  after_action  :set_total, only: %i[update]
-
+  after_action :set_total, only: %i[update destroy]
+  # after_action :set_total, only: %i[create]
   def index
     @order_items = Order_Items.find_by(params[:order_id])
   end
 
   def update
+    authorize OrderItem
     @order_item = @order.order_items.find(params[:id])
-    @order_item.update(order_item_params)
-    @order_items = @order.order_items
+    if @order_item.update(order_item_params)
+      flash[:notice] =
+        t(:cart_updated)
+    else
+      @order_item.errors.full_messages
+    end
     redirect_to cart_path
-
   end
 
   def destroy
+    authorize OrderItem
     @order_item = @order.order_items.find(params[:id])
-    @order_item.destroy
-    @order_items = @order.order_items
+    flash[:alert] = @order_item.destroy ? t(:item_removed) : @order_item.errors.full_messages
+
     redirect_to cart_path
   end
 
   def create
-
-    # if !current_user
-    #   if (session[:order_id])
-    #     @order=Order.find_by(id: session[:order_id])
-    #   else
-    #     @order = Order.create
-    #     session[:order_id] = @order.id
-    #   end
-    # else
-    #   @orders = current_user.orders
-    #   if @orders.empty?
-    #     @order = current_user.orders.create
-    #   end
-    # end
-    # byebug
-    # if current_user
-    #   # @user_order = Order.where(status:'processing').find_by(user_id: current_user.id)
-    #   @order = Order.where(status:'processing').find_by(user_id: current_user.id)
-
-    # else
-    #   # @user_order = Order.find_by(id: session[:order_id])
-    # end
+    authorize OrderItem
     @order_item = @order.order_items.new(order_item_params)
-
-    if @order.order_items.length == 0 || Item.find(@order_item.item_id).restaurant_id == Item.find(@order.order_items.first.item_id).restaurant_id
-      @order_item.save
+    if @order.order_items.length.zero? || @order_item.item.restaurant_id == @order.order_items.first.item.restaurant_id
+      @order_item.save ? flash[:notice] = t(:item_added) : flash[:alert] = @order_item.errors.full_messages
       set_total
+    else
+      flash[:alert] = t(:select_one_restaurant_at_a_time)
     end
-
-    # @order_item = @user_order.order_items.create(order_item_params)
-
-
-
-
-
-
-
-
 
     redirect_to items_path
   end
@@ -68,21 +44,17 @@ class OrderItemsController < ApplicationController
   private
 
   def set_order
-    if !current_user
-      if session[:order_id]
-        @order = Order.find_by(id: session[:order_id])
-      else
-        @order = Order.create(restaurant_id: Item.find(params[:order_item][:item_id]).restaurant_id)
-        session[:order_id] = @order.id
-      end
-    else
-      @order = current_user.orders.where(status: 'processing')[0]
+    if current_user
+      @order = current_user.orders.where(status: 'processing').first
       if @order.nil?
         @order = current_user.orders.create(restaurant_id: Item.find(params[:order_item][:item_id]).restaurant_id)
-
       end
+    elsif session[:order_id]
+      @order = Order.find_by(id: session[:order_id])
+    else
+      @order = Order.create(restaurant_id: Item.find(params[:order_item][:item_id]).restaurant_id)
+      session[:order_id] = @order.id
     end
-
   end
 
   def order_item_params
@@ -90,16 +62,9 @@ class OrderItemsController < ApplicationController
   end
 
   def set_total
-    @order[:total] = @order.order_items.sum{ |order_item| order_item.valid? ? order_item.quantity * order_item.unit_price : 0.0 }
+    @order[:total] = @order.order_items.sum do |order_item|
+      order_item.valid? ? order_item.quantity * order_item.unit_price : 0.0
+    end
     @order&.save
   end
-
-  # def current_order
-  #   if Order.find_by_id(session[:order_id]).nil?
-  #     order = Order.new
-  #     session[:order_id] = order.id
-  #   else
-  #     Order.find_by_id(session[:order_id])
-  #   end
-  # end
 end

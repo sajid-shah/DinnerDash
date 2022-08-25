@@ -1,29 +1,21 @@
 
-    <div class="card-header">Filter Result by Status</div>
+<% if current_user.role != 'customer' %>
+  <div class="card-header">Filter Result by Status</div>
     <div class="card-body">
-      <div class="col-1">
+      <div>
 
-        <%= button_to 'Ordered'   ,orders_path, action: :test,method: :"get", class: 'btn btn-primary',params:{status: "ordered"}%>
-
-        <%= button_to 'Paid',orders_path, action: :test,method: :"get", class: 'btn btn-info',params:{status: "paid"}%>
-        <%= button_to 'Cancelled',orders_path, action: :test,method: :"get", class: 'btn btn-danger' ,params:{status: "cancelled"} %>
-        <%= button_to 'Completed',orders_path, action: :test,method: :"get", class: 'btn btn-success',params:{status: "completed"} %>
+        <%= button_to 'Ordered', orders_path,method: :get, class: 'btn btn-primary',params:{status: "ordered"}%>
+        <%= button_to 'Paid', orders_path, method: :get, class: 'btn btn-info',params:{status: "paid"}%>
+        <%= button_to 'Cancelled', orders_path,method: :get, class: 'btn btn-danger' ,params:{status: "cancelled"} %>
+        <%= button_to 'Completed', orders_path,method: :get, class: 'btn btn-success',params:{status: "completed"} %>
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
+<% end %>
 <% @orders.each do |order| %>
 <div class="jumbotron" style="background-color: #f0eded">
   <h1 class="display-4"><%= order.status%></h1>
-  <h5 class="display-4 "><%=link_to Order, order %> </h5>
+  <h5 class="display-4 "><%=link_to Order, order %></h5>
   <p class="lead">Order ID = <%= order.id %> </p>
   <p class="lead">Order Amount = <%= order.total %> </p>
   <hr class="my-4">

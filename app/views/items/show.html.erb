@@ -22,7 +22,7 @@
 
       <div class="field">
       <%= f.label :Restaurant %><br>
-      <%= f.collection_select :restaurant_id, Restaurant.all, :id, :name, {include_blank: "select Restaurant"},  {:multiple => false} %>
+      <%= f.collection_select :restaurant_id, current_user.role == 'admin' ? current_user.restaurants : Restaurant.all, :id, :name, {include_blank: "select Restaurant"},  {:multiple => false} %>
   </div>
 
   <br>

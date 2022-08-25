@@ -14,7 +14,7 @@ module Users
     def make_admin
       user = User.find(params[:id])
       user.role = 'admin'
-      user.save
+      user.save ? flash[:notice] = t(:admin) : flash[:alert] = user.errors.full_messages
       redirect_to users_registrations_index_path
     end
 

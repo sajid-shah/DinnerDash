@@ -6,17 +6,10 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
   after_initialize :set_default_status, if: :new_record?
-  # before_save :set_total
+  validates :status, presence: true
   enum status: { processing: 0, ordered: 1, paid: 2, cancelled: 3, completed: 4 }
 
   def set_default_status
     self[:status] = :processing
   end
-
-  # def count
-  #   Order.where(params[:status])
-  # end
-
-
-
 end

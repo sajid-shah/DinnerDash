@@ -1,55 +1,33 @@
 
-
- <% if current_user && current_user&.role != 'customer' %>
-<div>
-<%= link_to "New Category", new_category_path, class: "btn btn-primary" %>
-</div>
-<br> <br>
+<% if current_user && current_user&.role != 'customer' %>
+  <div>
+  <%= link_to "New Category", new_category_path, class: "btn btn-primary" %>
+  </div>
+  <br>
+  <br>
 <%end%>
 
-
-
 <table class="table table-bordered table-striped">
-
   <thead>
-
     <tr>
       <th scope="col">Name</th>
-
       <th scope="col">Actions</th>
-
     </tr>
-
   </thead>
-
-<tbody>
-
-  <% @categories.each do |category| %>
-
-      <tr>
-        <td><%= category.name %> </td>
-
-        <td>
-                  <div>
-          <%= link_to "Show", category_items_path(category_id: category.id), method: :get, class: 'btn btn-primary' %>
-
-          <% if current_user && current_user.role != 'customer' %>
-
-            <%= link_to "Update Category", category , class: "btn btn-secondary" %>
-            <%= link_to "Delete", category , class: "btn btn-danger", method: :delete %>
-
-          <%end%>
-                    </div>
-
-        </td>
-
-
-
-      </tr>
-
-
-  <% end %>
-
-</tbody>
-
+  <tbody>
+    <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %> </td>
+          <td>
+            <div>
+              <%= link_to "Show Items", category_items_path(category_id: category.id), method: :get, class: 'btn btn-primary' %>
+              <% if current_user && current_user.role != 'customer' %>
+                <%= link_to "Update Category", category , class: "btn btn-secondary" %>
+                <%= link_to "Delete", category , class: "btn btn-danger", method: :delete %>
+              <%end%>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+  </tbody>
 </table>

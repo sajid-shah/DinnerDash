@@ -31,3 +31,38 @@
 
 en:
   hello: "Hello world"
+  
+  item_created: "Item Created Successfully."
+  item_updated: "Item Updated Successfully."
+  item_deleted: "Item Deleted Successfully."
+
+  item_added: "Item Added to Cart."
+  item_removed: "Item Removed from Cart."
+  item_active: "Item Marked as Active."
+  item_retire: "Item Marked as Retire."
+
+  admin: "Made Admin Successfully"
+
+  record_not_found: "Record not Found !"
+  you_are_not_authorize: 'You are not authorized to perform this action.'
+
+  order_status: "Order Status Changed Successfully!"
+  ordered_successfully: "Ordered Successfully."
+
+  please_add_items_in_cart: "Please add some Items in Cart."
+  cart_cleared: "Cart Cleared Successfully."
+  cart_updated: "Cart Updated Successfully."
+
+  item_removed: "Item Removed from Cart."
+  item_added: "Item Added to Cart."
+
+  select_one_restaurant_at_a_time: "Please Select Items from one Restaurant only!"
+
+  category_updated: "Category Updated."
+  category_deleted: "Category Deleted."
+  category_updated: "Category Updated."
+
+  restaurant_deleted: "Restaurant Deleted."
+  restaurant_updated: "Restaurant Updated."
+  restaurant_created: "Restaurant Created."
+

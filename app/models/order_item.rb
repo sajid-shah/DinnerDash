@@ -4,6 +4,8 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
   before_save :set_total
+  validates :quantity, presence: true
+
   before_save :set_unit_price
 
   def unit_price
@@ -15,7 +17,7 @@ class OrderItem < ApplicationRecord
   end
 
   def total
-    return unit_price * quantity
+    unit_price * quantity
   end
 
   private
@@ -27,8 +29,4 @@ class OrderItem < ApplicationRecord
   def set_total
     self[:totalamount] = total
   end
-
 end
-
-
-

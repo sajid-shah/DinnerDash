@@ -1,49 +1,54 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show edit update destroy]
+  before_action :set_category, only: %i[show update destroy]
   before_action :authenticate_user!, except: %i[index show]
 
   def index
     @categories = Category.all
   end
 
-  def show; end
+  def show
+    authorize Category
+  end
 
   def update
-    @category.update(category_params)
+    authorize Category
+    if @category.update(category_params)
+      flash[:notice] = t(:category_updated)
+    else
+      flash[:alert] = @category.errors.full_messages
+    end
+
     redirect_to categories_path
   end
 
   def destroy
-    @category.destroy
-    redirect_to categories_path
-  end
+    authorize Category
+    flash[:alert] = @category.destroy ? t(:category_deleted) : @category.errors.full_messages
 
-  def edit
-    @category.updated
-    @category.save
     redirect_to categories_path
   end
 
   def new
+    authorize Category
     @category = Category.new
   end
 
   def create
+    authorize Category
     @category = Category.new(category_params)
-    @category.save
+    @category.save ? flash[:notice] = t(:category_created) : flash[:alert] = @category.errors.full_messages
+
     redirect_to categories_path
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   private
-  
+
   def set_category
     @category = Category.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def category_params
     params.require(:category).permit(:name)
   end

@@ -1,2 +1,24 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<%= form_for @restaurant , url: {action: :update}, html: {class: "nifty_form"} do |f| %>
+  <div>
+    <%= f.label :name, style: "display: block" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= f.submit "Update Restaurant", class: 'btn  btn-primary'%>
+  </div>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Delete", @restaurant, method: :delete, class: "btn btn-danger" %>
+</div>
+
+<br>
+
+<div>
+  <%= link_to "Back to Items", restaurants_path, class: "btn btn-dark" %>
+</div>
