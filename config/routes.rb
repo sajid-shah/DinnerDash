@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get '404' => 'application#page_not_found' if Rails.env.development?
 
   root 'items#index'
   get '/cart', to: 'cart#index'
@@ -42,6 +41,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
+  get '*path' => 'application#routing_error'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

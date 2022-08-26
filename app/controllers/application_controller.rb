@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
+    render file: 'public/404.html', status: :not_found, layout: false
+  end
+
   protected
 
   def user_permit
@@ -14,13 +18,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def page_not_found
-    respond_to do |format|
-      format.html { render template: 'errors/not_found_error', layout: '/public', status: :not_found }
-      format.all  { render nothing: true, status: :not_found }
-    end
-  end
 
   def record_not_found
     flash[:alert] = t(:record_not_found)
