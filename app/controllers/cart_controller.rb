@@ -31,15 +31,15 @@ class CartController < ApplicationController
   end
 
   def find_session(order_instance)
-    unless session[:order_id].nil?
-      order_session = Order.find(session[:order_id])
-      order_items_session = order_session.order_items
-      session[:order_id] = nil
-      order_user = current_user.orders.where(status: 'processing')
-      order_items_user = order_user[0].order_items
-      order_items = order_items_session + order_items_user
-      order_instance.order_items = order_items
-      order_instance.save
-    end
+    return if session[:order_id].nil?
+
+    order_session = Order.find(session[:order_id])
+    order_items_session = order_session.order_items
+    session[:order_id] = nil
+    order_user = current_user.orders.where(status: 'processing')
+    order_items_user = order_user[0].order_items
+    order_items = order_items_session + order_items_user
+    order_instance.order_items = order_items
+    order_instance.save
   end
 end

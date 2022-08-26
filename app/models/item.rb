@@ -7,10 +7,15 @@ class Item < ApplicationRecord
   has_many :categories, through: :categorizations, dependent: :destroy
   has_many :orders, through: :order_items
   belongs_to :restaurant
+  has_one_attached :image
   validates :price, numericality: { only_float: true, greater_than: 0 }
   validates :title, presence: true, uniqueness: true
   validates :description, presence: true
   validate :category_present?
+
+  def thumbnail
+    image.variant(resize: '100x100!').processed
+  end
 
   def category_present?
     if Category.all.count.zero?

@@ -17,6 +17,11 @@
     <%= f.text_field :price %>
   </div>
 
+    <div class="field">
+          <%= f.label :image%><br>
+          <%= f.file_field :image, class: "form-control item_image", id:"my_image_create"%>
+    </div>
+
   <div class="field">
       <%= f.label :Category%><br>
       <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, {include_blank: "select category"},  {:multiple => true} %>
