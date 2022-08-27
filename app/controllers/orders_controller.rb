@@ -8,21 +8,11 @@ class OrdersController < ApplicationController
     authorize Order
     @orders = case current_user.role
               when 'customer'
-
-                current_user.orders.all
-
+                customer_orders
               when 'admin'
-                if params[:status]
-                  Order.where(status: params[:status]).select do |x|
-                    current_user.restaurants.ids.include?(x.restaurant_id)
-                  end
-                else
-                  Order.where.not(status: 'processing').select do |x|
-                    current_user.restaurants.ids.include?(x.restaurant_id)
-                  end
-                end
+                admin_orders
               else
-                params[:status] ? Order.where(status: params[:status]) : Order.where.not(status: 'processing')
+                superadmin_orders
               end
   end
 
@@ -30,7 +20,7 @@ class OrdersController < ApplicationController
     authorize Order
     order = Order.find(params[:id])
     order.status = params[:status]
-    order.save ? flash[:notice] = t(:order_status) : flash[:alert] = order.errors.full_messages
+    flash[:notice] = order.save ? t(:order_status) : order.errors.full_messages
     redirect_to orders_index_path
   end
 
@@ -59,7 +49,7 @@ class OrdersController < ApplicationController
 
   def set_order
     if current_user
-      @order = current_user.orders.where(status: 'processing').first
+      current_order
       @order = current_user.orders.create if @order.nil?
     elsif session[:order_id]
       @order = Order.find_by(id: session[:order_id])
@@ -67,5 +57,37 @@ class OrdersController < ApplicationController
       @order = Order.create
       session[:order_id] = @order.id
     end
+  end
+
+  def customer_orders
+    current_user.orders.all
+  end
+
+  def superadmin_orders
+    params[:status] ? Order.where(status: params[:status]) : Order.where.not(status: 'processing')
+  end
+
+  def admin_orders
+    if params[:status]
+      admin_orders_params
+    else
+      admin_orders_without_params
+    end
+  end
+
+  def admin_orders_params
+    Order.where(status: params[:status]).select do |x|
+      current_user.restaurants.ids.include?(x.restaurant_id)
+    end
+  end
+
+  def admin_orders_without_params
+    Order.where.not(status: 'processing').select do |x|
+      current_user.restaurants.ids.include?(x.restaurant_id)
+    end
+  end
+
+  def current_order
+    @order = current_user.orders.where(status: 'processing').first
   end
 end
