@@ -16,11 +16,11 @@ RSpec.describe Order, type: :model do
 
   context 'when Order is created' do
     it 'have valid data before saving.' do
-      expect(create(:order).save).to be_truthy
+      expect(build(:order).save).to be_truthy
     end
 
     it 'by default, :status should be processing' do
-      expect(create(:order).status).to eq('processing')
+      expect(build(:order).status).to eq('processing')
     end
 
     it 'must not save without :status' do

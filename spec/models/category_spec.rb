@@ -15,7 +15,7 @@ RSpec.describe Category, type: :model do
 
   context 'when Category is created' do
     it 'have valid data before saving.' do
-      expect(create(:category).save).to be_truthy
+      expect(build(:category).save).to be_truthy
     end
 
     it 'must not save without name' do
@@ -24,4 +24,5 @@ RSpec.describe Category, type: :model do
       expect(category.valid?).to be(false)
     end
   end
+
 end

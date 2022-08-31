@@ -13,13 +13,9 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validate :category_present?
 
-  def thumbnail
-    image.variant(resize: '100x100!').processed
-  end
-
   def category_present?
     if Category.all.count.zero?
-      errors.add(:category, 'should be created first') if Category.all.count.zero?
+      errors.add(:category, 'should be created first')
     elsif category_ids.count.zero?
       errors.add(:category, 'is not selected')
     end

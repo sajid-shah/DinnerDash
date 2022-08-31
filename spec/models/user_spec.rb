@@ -18,20 +18,20 @@ RSpec.describe User, type: :model do
 
   context 'when User is created' do
     it 'have valid data before saving.' do
-      expect(create(:user).save).to be_truthy
+      expect(build(:user).save).to be_truthy
     end
 
     it 'for first time, role should be superadmin' do
-      expect(create(:user).role).to eq('superadmin')
+      expect(build(:user).role).to eq('superadmin')
     end
 
     it 'second time, role should be customer' do
       create(:user).save
-      expect(create(:user).role).to eq('customer')
+      expect(build(:user).role).to eq('customer')
     end
 
     it 'must be saved without display name' do
-      expect(create(:user).save).to be_truthy
+      expect(build(:user).save).to be_truthy
     end
   end
 end

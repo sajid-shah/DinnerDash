@@ -49,7 +49,7 @@ group :development, :test do
   gem 'faker', '~> 1.6', '>= 1.6.6'
   gem 'rspec-rails'
 end
-
+gem 'simplecov', require: false, group: :test
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'

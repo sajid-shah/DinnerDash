@@ -16,7 +16,7 @@ RSpec.describe Restaurant, type: :model do
 
   context 'when Restaurant is created' do
     it 'have valid data before saving.' do
-      expect(create(:restaurant).save).to be_truthy
+      expect(build(:restaurant).save).to be_truthy
     end
 
     it 'must not save without name' do

@@ -19,7 +19,7 @@ RSpec.describe OrderItem, type: :model do
 
   context 'when OrderItem is created' do
     it 'have valid data before saving.' do
-      expect(create(:order_item).save).to be_truthy
+      expect(build(:order_item).save).to be_truthy
     end
   end
 end

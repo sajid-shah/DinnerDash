@@ -4,9 +4,7 @@ require 'faker'
 
 FactoryBot.define do
   factory :category do
-    Faker::Food.unique.clear
-
-    name { Faker::Food.unique.spice }
+    name { Faker::Name.unique.name }
 
     trait :no_name do
       name { nil }
