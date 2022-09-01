@@ -18,9 +18,9 @@ class OrdersController < ApplicationController
 
   def change_status
     authorize Order
-    order = Order.find(params[:id])
-    order.status = params[:status]
-    flash[:notice] = order.save ? t(:order_status) : order.errors.full_messages
+    @order_ = Order.find(params[:id])
+    @order_.status = params[:status]
+    flash[:notice] = @order_.save ? t(:order_status) : @order_.errors.full_messages
     redirect_to orders_index_path
   end
 

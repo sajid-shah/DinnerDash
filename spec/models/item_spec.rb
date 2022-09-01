@@ -21,7 +21,7 @@ RSpec.describe Item, type: :model do
 
   context 'when Item is created' do
     it 'have valid data before saving.' do
-      expect(build(:item).valid?).to be_truthy
+      expect(build(:item)).to be_valid
     end
 
     it 'must not save without :title' do
@@ -46,8 +46,7 @@ RSpec.describe Item, type: :model do
 
     it 'must not save without :category_ids' do
       # Category.destroy_all
-      expect(build(:item_without_category).valid?).to be_falsy
+      expect(build(:item_without_category)).not_to be_valid
     end
-
   end
 end

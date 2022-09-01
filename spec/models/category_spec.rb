@@ -24,5 +24,4 @@ RSpec.describe Category, type: :model do
       expect(category.valid?).to be(false)
     end
   end
-
 end

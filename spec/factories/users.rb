@@ -13,7 +13,22 @@ FactoryBot.define do
       displayname { nil }
     end
 
+    trait :customer do
+      role { 'customer' }
+    end
+
+    trait :admin do
+      role { 'admin' }
+    end
+
+    trait :superadmin do
+      role { 'superadmin' }
+    end
+
     factory :customer_user, traits: [:customer]
+    factory :admin_user, traits: [:admin]
+    factory :superadmin_user, traits: [:superadmin]
+
     factory :user_without_displayname, traits: [:no_displayname]
   end
 end

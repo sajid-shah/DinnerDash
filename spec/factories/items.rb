@@ -37,6 +37,5 @@ FactoryBot.define do
     factory :item_with_no_description, traits: [:no_description]
     factory :item_with_active_false, traits: [:active_false]
     factory :item_without_category, traits: [:no_category]
-
   end
 end

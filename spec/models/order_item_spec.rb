@@ -10,11 +10,11 @@ RSpec.describe OrderItem, type: :model do
 
   context 'when validating OrderItem' do
     it { is_expected.to validate_presence_of(:quantity) }
-    it { is_expected.to validate_presence_of(:totalamount) }
-    it { is_expected.to validate_presence_of(:unit_price) }
+    # it { is_expected.to validate_presence_of(:totalamount) }
+    # it { is_expected.to validate_presence_of(:unit_price) }
     it { is_expected.to validate_numericality_of(:quantity).is_greater_than(0) }
-    it { is_expected.to validate_numericality_of(:unit_price).is_greater_than(0) }
-    it { is_expected.to validate_numericality_of(:totalamount).is_greater_than(0) }
+    # it { is_expected.to validate_numericality_of(:unit_price).is_greater_than(0) }
+    # it { is_expected.to validate_numericality_of(:totalamount).is_greater_than(0) }
   end
 
   context 'when OrderItem is created' do

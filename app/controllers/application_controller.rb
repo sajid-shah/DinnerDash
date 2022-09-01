@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   before_action :user_permit, if: :devise_controller?
-  include Pundit
+  include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 

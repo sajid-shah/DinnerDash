@@ -49,7 +49,9 @@ group :development, :test do
   gem 'faker', '~> 1.6', '>= 1.6.6'
   gem 'rspec-rails'
 end
+gem 'rails-controller-testing'
 gem 'simplecov', require: false, group: :test
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -74,9 +76,9 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'rubocop'
-  gem 'rubocop-rspec' # or gem 'rubocop-rspec' depending on your test suite
   gem 'rubocop-performance'
   gem 'rubocop-rails'
+  gem 'rubocop-rspec' # or gem 'rubocop-rspec' depending on your test suite
 end
 
 # user-managment gem (devise)

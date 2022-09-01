@@ -5,15 +5,15 @@ class OrderItem < ApplicationRecord
   belongs_to :item
   before_save :set_total
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :totalamount, presence: true, numericality: { only_float: true, greater_than: 0 }
-  validates :unit_price, presence: true, numericality: { only_float: true, greater_than: 0 }
-
-
 
   before_save :set_unit_price
 
   def unit_price
-    self[:unit_price]
+    if persisted?
+      self[:unit_price]
+    else
+      item.price
+    end
   end
 
   def total
