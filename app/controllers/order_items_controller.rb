@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
 class OrderItemsController < ApplicationController
-  before_action :set_order
-  after_action :set_total, only: %i[update destroy]
-  def index
-    @order_items = Order_Items.find_by(params[:order_id])
-  end
+  before_action :set_order, except: %i[destroy]
+  after_action :set_total, only: %i[update]
 
   def update
     authorize OrderItem
-    @order_item = @order.order_items.find(params[:id])
+    @order_item = OrderItem.find(params[:id])
     if @order_item.update(order_item_params)
       flash[:notice] =
         t(:cart_updated)
@@ -21,7 +18,7 @@ class OrderItemsController < ApplicationController
 
   def destroy
     authorize OrderItem
-    @order_item = @order.order_items.find(params[:id])
+    @order_item = OrderItem.find(params[:id])
     flash[:alert] = @order_item.destroy ? t(:item_removed) : @order_item.errors.full_messages
 
     redirect_to cart_path
@@ -54,7 +51,7 @@ class OrderItemsController < ApplicationController
   end
 
   def order_item_params
-    params.require(:order_item).permit(:item_id, :quantity)
+    params.require(:order_item).permit(:id, :item_id, :quantity)
   end
 
   def set_total

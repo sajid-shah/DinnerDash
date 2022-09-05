@@ -9,16 +9,8 @@ class OrderPolicy < ApplicationPolicy
     admin? || customer? || superadmin?
   end
 
-  def create?
-    nil? || customer?
-  end
-
   def show?
     customer? || admin? || superadmin?
-  end
-
-  def update?
-    nil? || customer?
   end
 
   def change_status?

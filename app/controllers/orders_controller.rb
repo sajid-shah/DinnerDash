@@ -2,7 +2,7 @@
 
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: %i[index]
-  before_action :set_order, only: %i[update destroy]
+  before_action :set_order, only: %i[destroy]
 
   def index
     authorize Order
@@ -24,18 +24,18 @@ class OrdersController < ApplicationController
     redirect_to orders_index_path
   end
 
-  def update
-    authorize Order
-  end
+  # def update
+  #   authorize Order
+  # end
 
   def show
     authorize Order
     @order_items = Order.find(params[:id]).order_items
   end
 
-  def create
-    authorize Order
-  end
+  # def create
+  #   authorize Order
+  # end
 
   def destroy
     authorize Order

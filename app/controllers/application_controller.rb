@@ -6,9 +6,9 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
-    render file: 'public/404.html', status: :not_found, layout: false
-  end
+  # def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
+  #   render file: 'public/404.html', status: :not_found, layout: false
+  # end
 
   protected
 
