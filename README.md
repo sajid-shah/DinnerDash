@@ -1,12 +1,11 @@
-# README
 # Dinner Dash
 This is a Dinner Dash App(v2).
-## Prerequisits
+## Prerequisites
   * Git
   * Ruby 2.7.6
   * Rails 5.2.8
   * PostgreSQL 14.4
-## Clone the Repository and move to project directory
+## Clone the Repository and move it to the project directory
   * git clone https://github.com/sajidshah960/DinnerDash
   * cd DinnerDash
 ## Install Dependencies
